@@ -6,11 +6,13 @@ import com.techg.orderservice.model.Order;
 import com.techg.orderservice.model.OrderLineItems;
 import com.techg.orderservice.repository.OrderRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 //@RequiredArgsConstructor  This lombok annotation is an alternative of manually creating a constructor
 public class OrderService {
 
