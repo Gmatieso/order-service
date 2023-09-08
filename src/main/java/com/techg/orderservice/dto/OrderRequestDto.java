@@ -1,6 +1,5 @@
 package com.techg.orderservice.dto;
 
-import com.techg.orderservice.model.OrderLineItems;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderRequest {
+public class OrderRequestDto {
     public List<OrderLineItemsDto> orderLineItemsDtoList;
 
     public List<OrderLineItemsDto> getOrderLineItemsDtoList() {
