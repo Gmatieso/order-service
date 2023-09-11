@@ -1,10 +1,9 @@
-package com.techg.inventoryservice.dto;
+package com.techg.orderservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 
 @Data
