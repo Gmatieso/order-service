@@ -11,7 +11,7 @@ public class WebClientConfig {
     //create a bean of type web client  and identify it with name webClient
     @Bean
     @LoadBalanced
-    public WebClient.Builder webClientBuilder(){
+    public WebClient.Builder webClient(){
         return WebClient.builder();
     }
 }
