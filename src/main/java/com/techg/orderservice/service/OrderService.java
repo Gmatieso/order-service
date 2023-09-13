@@ -6,6 +6,7 @@ import com.techg.orderservice.dto.OrderRequestDto;
 import com.techg.orderservice.model.Order;
 import com.techg.orderservice.model.OrderLineItems;
 import com.techg.orderservice.repository.OrderRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -16,16 +17,16 @@ import java.util.UUID;
 
 @Service
 @Transactional
-//@RequiredArgsConstructor  This lombok annotation is an alternative of manually creating a constructor
+@RequiredArgsConstructor  //This lombok annotation is an alternative of manually creating a constructor
 public class OrderService {
 
     private final OrderRepository orderRepository;
     private final WebClient.Builder webClientBuilder;
 
-    public OrderService(OrderRepository orderRepository, WebClient webClientBuilder) {
-        this.orderRepository = orderRepository;
-        this.webClientBuilder = (WebClient.Builder) webClientBuilder;
-    }
+//    public OrderService(OrderRepository orderRepository, WebClient webClientBuilder) {
+//        this.orderRepository = orderRepository;
+//        this.webClientBuilder = (WebClient.Builder) webClientBuilder;
+//    }
 
     public void placeOrder(OrderRequestDto orderRequestDto){
         //creates an instance of new Order
@@ -46,7 +47,7 @@ public class OrderService {
 
         //call Inventory Service, and place order if product is in stock
         InventoryResponse[] inventoryResponsesArray = webClientBuilder.build().get()
-                .uri("http://localhost:8082/api/inventory",
+                .uri("http://inventory-service/api/inventory",
                         uriBuilder -> uriBuilder.queryParam("skuCode",skuCodes).build())
                 .retrieve()
                         .bodyToMono(InventoryResponse[].class)
