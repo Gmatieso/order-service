@@ -28,7 +28,7 @@ public class OrderService {
 //        this.webClientBuilder = (WebClient.Builder) webClientBuilder;
 //    }
 
-    public void placeOrder(OrderRequestDto orderRequestDto){
+    public String placeOrder(OrderRequestDto orderRequestDto){
         //creates an instance of new Order
         Order order = new Order();
         //set random order number
@@ -60,6 +60,7 @@ boolean allProductsInStock =  Arrays.stream(inventoryResponsesArray)
         if(allProductsInStock){
             //save to the repository
             orderRepository.save(order);
+            return "Order Placed Successfully";
         } else {
             throw  new IllegalArgumentException("Product is not in stock, please try again later");
         }
