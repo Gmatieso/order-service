@@ -7,6 +7,7 @@ import com.techg.orderservice.model.Order;
 import com.techg.orderservice.model.OrderLineItems;
 import com.techg.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -22,6 +23,8 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final WebClient.Builder webClientBuilder;
+
+    private  final KafkaTemplate kafkaTemplate;
 
 //    public OrderService(OrderRepository orderRepository, WebClient webClientBuilder) {
 //        this.orderRepository = orderRepository;
@@ -60,6 +63,7 @@ boolean allProductsInStock =  Arrays.stream(inventoryResponsesArray)
         if(allProductsInStock){
             //save to the repository
             orderRepository.save(order);
+            kafkaTemplate.send("notification topic", order.getOrderNumber());
             return "Order Placed Successfully";
         } else {
             throw  new IllegalArgumentException("Product is not in stock, please try again later");
